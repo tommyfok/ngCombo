@@ -29,5 +29,5 @@ $scope.pkgNames = [
      placeholder="Type in package name."></div>
 ```
 ## ScreenShot
-![ScreenShot](https://tommyfok.github.io/ngCombo/ngCombo.png)
+![ScreenShot](http://tommyfok.github.io/ngCombo/screenshot.jpg)
 > too lazy to write more...
