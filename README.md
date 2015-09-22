@@ -1,38 +1,27 @@
-# ngAutoComplete
-Auto Complete Module for AngularJS.
-
+# ngCombo
+Combobox Component for AngularJS.
 Support multiple select.
 
 ## Installation
 1. With Bower :
-   - `bower install --save ngAutoComplete`
+   - `bower install --save ngCombo`
 
-   Or download `ngAutoComplete.js` manually
+   Or download `ngCombo.js` manually
 
-2. include `ngAutoComplete.js` after your `angular.js` file
+2. include `ngCombo.js` after your `angular.js` file
 
-3. adding `ngAutoComplete` as a module dependency to your application
+3. adding `ngCombo` as a module dependency to your application
 
 ## Useage
 ```javascript
 $scope.pkgNames = ['tom', 'tommy', 'nancy', 'fun', 'chole'];
-$scope.fnFormatter = function (item) {
-  // show 'tomtom' in the list for example
-  return item + item;
-};
-$scope.fnParser = function (item) {
-  // show 'tomtomtom' in the input for example
-  return item + item + item;
-};
 ```
 ```html
-<div ng-auto-complete
+<div ng-combo
      ng-model="pkgName"
-     nac-data="pkgNames"
-     nac-formatter="fnFormatter"
-     nac-parser="fnParser"
+     nc-data="pkgNames"
      placeholder="Type in package name."></div>
 ```
 ## ScreenShot
-![ScreenShot](https://tommyfok.github.io/ngAutoComplete/screenshot.png)
+![ScreenShot](https://tommyfok.github.io/ngCombo/ngCombo.png)
 > too lazy to write more...
