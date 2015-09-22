@@ -14,7 +14,13 @@ Support multiple select.
 
 ## Useage
 ```javascript
-$scope.pkgNames = ['tom', 'tommy', 'nancy', 'fun', 'chole'];
+$scope.pkgNames = [
+  {text: 'tom', value: 1},
+  {text: 'jerry', value: 2},
+  {text: 'dickson', value: 3},
+  {text: 'bob', value: 4},
+  {text: 'jade', value: 5}
+];
 ```
 ```html
 <div ng-combo
