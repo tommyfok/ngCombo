@@ -6,9 +6,9 @@ Support multiple select.
 1. With Bower :
    - `bower install --save ngCombo`
 
-   Or download `ngCombo.js` manually
+   Or download `ngCombo.js` & `ngCombo.css` manually
 
-2. include `ngCombo.js` after your `angular.js` file
+2. include `ngCombo.js` & `ngCombo.css` after your `angular.js` file
 
 3. adding `ngCombo` as a module dependency to your application
 
