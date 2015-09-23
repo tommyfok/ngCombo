@@ -1,0 +1,84 @@
+.ngCombo {
+  position:relative;
+  border:1px solid #ddd;
+  font-size:14px
+}
+.ngCombo .placeholder {
+  line-height:38px;
+  padding-left:10px;
+  font-size:12px;
+  color:#789
+}
+.ngComboMask {
+  position:absolute;
+  z-index:2;
+  width:100%;
+  height:100%;
+  cursor:pointer;
+  left:0;
+  top:0
+}
+.ngCombo .dropdownIcon {
+  position:absolute;
+  right:5px;
+  top:5px;
+  line-height:30px;
+  width:30px;
+  cursor:pointer;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold
+}
+.ngCombo .dropdownIcon:hover {
+  color:#f60
+}
+.ngCombo .selectedItems {
+  min-height:38px;
+  padding-right:40px;
+  padding-bottom:5px;
+}
+.ngCombo .selectedItems span {
+  margin:5px 0 0 5px;
+  display:inline-block;
+  cursor:pointer;
+  color:#fff;
+  background:#5cb85c;
+  padding:5px;
+  border-radius:3px
+}
+.ngCombo .optionList {
+  max-height:182px;
+  overflow:auto;
+  position:absolute;
+  right:-1px;
+  left:-1px;
+  top:100%;
+  border:1px solid #ddd
+}
+.ngCombo .option {
+  line-height:30px;
+  padding:0 10px;
+  cursor:pointer;
+  background:#fefefe
+}
+.ngCombo .option:nth-child(2n) {
+  background:#fafafa
+}
+.ngCombo .option.selected {
+  color:#5cb85c
+}
+.ngCombo .comboQuery,.ngCombo .comboQuery:focus {
+  border:0;
+  box-shadow:none;
+  border-radius:0;
+  background:#fafafa;
+  outline:0;
+  display:block;
+  padding:0 10px;
+  line-height:30px;
+  width:100%;
+  box-sizing:border-box
+}
+.ngCombo .option:hover {
+  color:#f60
+}

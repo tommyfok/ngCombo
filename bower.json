@@ -1,6 +1,6 @@
 {
   "name": "ngCombo",
-  "main": "ngCombo.js",
+  "main": ["ngCombo.js", "ngCombo.css"],
   "homepage": "https://github.com/tommyfok/ngCombo",
   "authors": [
     "tommyhuo <tommyhuo@tencent.com>"
