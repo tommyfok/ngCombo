@@ -1,13 +1,15 @@
 .ngCombo {
   position:relative;
-  border:1px solid #ddd;
+  border:1px solid #ccc;
   font-size:12px;
-  height: 32px;
+  height: 34px;
   overflow: visible;
   border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .ngCombo .placeholder {
-  line-height:32px;
+  line-height:34px;
   padding-left:10px;
   color:#789
 }
@@ -21,10 +23,10 @@
   top:0
 }
 .ngCombo .selectedItems {
-  min-height:32px;
+  min-height:34px;
 }
 .ngCombo .selectedItems span {
-  margin:5px 0 0 5px;
+  margin:6px 0 0 6px;
   display:inline-block;
   cursor:pointer;
   color:#fff;
@@ -41,6 +43,8 @@
   padding:0 10px;
   cursor:pointer;
   background:#fefefe;
+  border-left:1px solid #ddd;
+  border-right:1px solid #ddd;
 }
 .ngCombo .option:nth-child(2n) {
   background:#fafafa
@@ -78,10 +82,11 @@
   color:#f60
 }
 .ngCombo .show-list {
-  border:1px solid #ddd;
   position: absolute;
-  left: -1px;
-  top: -1px;
+  top: 0;
   width: 100%;
   border-radius: 3px;
+  z-index: 3;
+  border-bottom:1px solid #ddd;
 }
+
