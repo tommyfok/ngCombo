@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="Demo" ng-controller="DemoCtrl">
+<head>
+    <meta charset="utf-8">
+    <title>ngCombo Demo</title>
+    <link rel="stylesheet" type="text/css" href="ngCombo.css">
+    <style>
+        .wrapper {
+            width: 300px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div ng-combo nc-data="pkgNames" ng-model="pkg"></div>
+    </div>
+    <script src="http://cdn.bootcss.com/angular.js/1.4.8/angular.min.js"></script>
+    <script src="ngCombo.js"></script>
+    <script>
+        angular.module('Demo', ['ngCombo'])
+        .controller('DemoCtrl', ['$scope', function ($scope) {
+          $scope.pkgNames = [
+            {text: 'tom', value: 1},
+            {text: 'jerry', value: 2},
+            {text: 'dickson', value: 3},
+            {text: 'bob', value: 4},
+            {text: 'jade', value: 5}
+          ];
+        }]);
+    </script>
+</body>
+</html>
