@@ -24,15 +24,22 @@
 }
 .ngCombo .selectedItems {
   min-height:34px;
+  cursor: text;
 }
 .ngCombo .selectedItems span {
   margin:6px 0 0 6px;
   display:inline-block;
   cursor:pointer;
-  color:#fff;
-  background:#5cb85c;
-  padding:5px;
+  color:#666;
+  background:#eee;
+  padding:2px 5px;
   border-radius:3px
+}
+.ngCombo .selectedItems span > i {
+  margin-left: 4px;
+}
+.ngCombo .selectedItems span > i:hover {
+  color: #f60;
 }
 .ngCombo .optionList {
   max-height:182px;

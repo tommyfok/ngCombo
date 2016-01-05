@@ -3,23 +3,42 @@
 <head>
     <meta charset="utf-8">
     <title>ngCombo Demo</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="ngCombo.css">
     <style>
         .wrapper {
-            width: 300px;
+            width: 800px;
             margin: 20px auto;
+        }
+        [ng-combo] {
+            width: 380px;
+            float: left;
+        }
+        [ng-bind="pkg | json"] {
+            float: right;
+            width: 380px;
         }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <div ng-combo nc-data="pkgNames" ng-model="pkg"></div>
+        <div ng-combo nc-data="pkgNames" ng-model="pkg" nc-formatter="formatter" nc-parser="parser"></div>
+        <pre ng-bind="pkg | json"></pre>
     </div>
+    </div>
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.4.8/angular.min.js"></script>
     <script src="ngCombo.js"></script>
     <script>
         angular.module('Demo', ['ngCombo'])
         .controller('DemoCtrl', ['$scope', function ($scope) {
+          $scope.formatter = function (item) {
+            return item.text.toUpperCase();
+          };
+          $scope.parser = function (item) {
+            return Math.pow(item.value, 2);
+          };
           $scope.pkgNames = [
             {text: 'tom', value: 1},
             {text: 'jerry', value: 2},

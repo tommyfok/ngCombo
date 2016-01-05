@@ -2,6 +2,8 @@
 Combobox Component for AngularJS.
 Support multiple select.
 
+## [Demo](http://tommyfok.github.io/ngCombo/demo.html)
+
 ## Installation
 1. With Bower :
    - `bower install --save ngCombo`
@@ -12,8 +14,6 @@ Support multiple select.
 
 3. adding `ngCombo` as a module dependency to your application
 
-## [Demo](http://tommyfok.github.io/ngCombo/demo.html)
-
 ## Useage
 ```javascript
 $scope.pkgNames = [
@@ -23,13 +23,21 @@ $scope.pkgNames = [
   {text: 'bob', value: 4},
   {text: 'jade', value: 5}
 ];
+
+$scope.formatter = function (item) {
+  return item.text.toUpperCase();
+};
+
+$scope.parser = function (item) {
+  return Math.pow(item.value, 2);
+};
 ```
 ```html
 <div ng-combo
-     ng-model="pkgName"
+     ng-model="values"
      nc-data="pkgNames"
-     placeholder="Type in package name."></div>
+     nc-parser="parser"
+     nc-formatter="formatter"
+     placeholder="Type in package name.">
+</div>
 ```
-## ScreenShot
-![ScreenShot](http://tommyfok.github.io/ngCombo/screenshot.jpg)
-> too lazy to write more...
