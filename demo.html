@@ -22,7 +22,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <div ng-combo nc-data="pkgNames" ng-model="pkg" nc-formatter="formatter" nc-parser="parser"></div>
+        <div ng-combo nc-src="'http://lib.cdc.com/oaui/memberinput/data/allmember.php?callback=JSON_CALLBACK'" ng-model="pkg" nc-transform="transform"></div>
         <pre ng-bind="pkg | json"></pre>
     </div>
     </div>
@@ -33,19 +33,9 @@
     <script>
         angular.module('Demo', ['ngCombo'])
         .controller('DemoCtrl', ['$scope', function ($scope) {
-          $scope.formatter = function (item) {
-            return item.text.toUpperCase();
+          $scope.transform = function (data) {
+            return data.data ? data.data.split(',') : [];
           };
-          $scope.parser = function (item) {
-            return Math.pow(item.value, 2);
-          };
-          $scope.pkgNames = [
-            {text: 'tom', value: 1},
-            {text: 'jerry', value: 2},
-            {text: 'dickson', value: 3},
-            {text: 'bob', value: 4},
-            {text: 'jade', value: 5}
-          ];
         }]);
     </script>
 </body>

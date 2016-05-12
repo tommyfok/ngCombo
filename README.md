@@ -31,13 +31,20 @@ $scope.formatter = function (item) {
 $scope.parser = function (item) {
   return Math.pow(item.value, 2);
 };
+// 通常和nc-src配合使用
+$scope.transform = function (data) {
+  return data.data;
+}
 ```
 ```html
 <div ng-combo
+     nc-limit="30"
      ng-model="values"
      nc-data="pkgNames"
      nc-parser="parser"
      nc-formatter="formatter"
-     placeholder="Type in package name.">
+     nc-transform="transform"
+     placeholder="Type in package name."
+     nc-src="'http://lib.cdc.com/oaui/memberinput/data/allmember.php?callback=JSON_CALLBACK'">
 </div>
 ```
