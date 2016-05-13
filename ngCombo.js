@@ -39,6 +39,7 @@ angular.module('ngCombo', [])
     link: function (scope, elem, attrs, ngModelCtrl) {
       scope.selectedItems = [];
       scope.input = scope.input || [];
+      scope.selectedItems = scope.input;
       scope.placeholder = scope.placeholder || '';
       scope.filteredData = [];
 
