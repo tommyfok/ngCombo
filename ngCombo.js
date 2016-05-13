@@ -1,13 +1,13 @@
 var ngComboTpl = ''
-+'<div class="ngCombo" ng-mouseleave="showList=false">'
++'<div class="ngCombo">'
 +'  <div class="ngComboMask" ng-hide="showList || selectedItems.length" ng-click="showListAndFocus()"></div>'
 +'  <div class="selectedItems" ng-hide="showList" ng-click="showListAndFocus()">'
 +'    <div class="placeholder" ng-bind="placeholder" ng-hide="selectedItems.length"></div>'
 +'    <span ng-repeat="item in selectedItems">{{_formatter(item)}}<i ng-click="remove(item, $event)">&times;</i></span>'
 +'  </div>'
 +'  <div ng-show="showList" class="show-list">'
-+'    <input class="comboQuery" ng-model="query" placeholder="在此输入搜索内容" ng-keyup="onInput($event, filteredData)">'
-+'    <div class="optionList">'
++'    <input class="comboQuery" ng-model="query" ng-blur="hideListAsyn()" placeholder="{{scope.placeholder}}" ng-keyup="onInput($event, filteredData)">'
++'    <div class="optionList" ng-show="selectedItems.length + filteredData.length">'
 +'      <div ng-bind="_formatter(item)"'
 +'           class="option" ng-class="{selected: isSelected(item)}"'
 +'           ng-repeat="item in selectedItems" ng-click="toggle(item)">'
@@ -21,7 +21,7 @@ var ngComboTpl = ''
 +'</div>';
 
 angular.module('ngCombo', [])
-.directive('ngCombo', function ($http, $filter) {
+.directive('ngCombo', function ($http, $filter, $timeout) {
   return {
     restrict: 'AE',
     template: ngComboTpl,
@@ -39,7 +39,7 @@ angular.module('ngCombo', [])
     link: function (scope, elem, attrs, ngModelCtrl) {
       scope.selectedItems = [];
       scope.input = scope.input || [];
-      scope.placeholder = scope.placeholder || '点击选择';
+      scope.placeholder = scope.placeholder || '';
       scope.filteredData = [];
 
       scope._formatter = angular.isFunction(scope.formatter) ? scope.formatter : function (item) {
@@ -63,6 +63,7 @@ angular.module('ngCombo', [])
         if (results && results.length === 1 && event.which == 13) {
           scope.add(results[0]);
           scope.query = '';
+          scope.showList = false;
         }
       };
 
@@ -96,6 +97,12 @@ angular.module('ngCombo', [])
 
       scope.toggle = function (item) {
         scope[scope.isSelected(item) ? 'remove' : 'add'](item);
+      };
+
+      scope.hideListAsyn = function () {
+        $timeout(function () {
+          scope.showList = false;
+        }, 50);
       };
 
       scope.$watch('query', function (newQuery) {
