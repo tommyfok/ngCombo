@@ -62,7 +62,7 @@ angular.module('ngCombo', [])
       }
 
       function getMatchedItemsFromInput () {
-        if (!(scope.data.length || scope.input.length)) {
+        if (!((scope.data && scope.data.length) || scope.input.length)) {
           return [];
         } else {
           var result = [];
