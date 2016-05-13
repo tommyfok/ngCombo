@@ -32,10 +32,14 @@
     <script src="ngCombo.js"></script>
     <script>
         angular.module('Demo', ['ngCombo'])
-        .controller('DemoCtrl', ['$scope', function ($scope) {
+        .controller('DemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
           $scope.transform = function (data) {
             return data.data ? data.data.split(',') : [];
           };
+          $scope.pkg = [];
+          $timeout(function () {
+              $scope.pkg = ['tommyhuo'];
+          }, 3000);
         }]);
     </script>
 </body>

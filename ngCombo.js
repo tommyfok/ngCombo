@@ -3,18 +3,18 @@ var ngComboTpl = ''
 +'  <div class="ngComboMask" ng-hide="showList || selectedItems.length" ng-click="showListAndFocus()"></div>'
 +'  <div class="selectedItems" ng-hide="showList" ng-click="showListAndFocus()">'
 +'    <div class="placeholder" ng-bind="placeholder" ng-hide="selectedItems.length"></div>'
-+'    <span ng-repeat="item in selectedItems">{{_formatter(item)}}<i ng-click="remove(item, $event)">&times;</i></span>'
++'    <span ng-repeat="item in selectedItems track by $index">{{_formatter(item)}}<i ng-click="remove(item, $event)">&times;</i></span>'
 +'  </div>'
 +'  <div ng-show="showList" class="show-list">'
 +'    <input class="comboQuery" ng-model="query" ng-blur="hideListAsyn()" placeholder="{{scope.placeholder}}" ng-keydown="onInput($event, filteredData)">'
 +'    <div class="optionList" ng-show="selectedItems.length + filteredData.length">'
 +'      <div ng-bind="_formatter(item)"'
 +'           class="option" ng-class="{selected: isSelected(item)}"'
-+'           ng-repeat="item in selectedItems" ng-click="toggle(item)">'
++'           ng-repeat="item in selectedItems track by $index" ng-click="toggle(item)">'
 +'      </div>'
 +'      <div ng-bind="_formatter(item)"'
 +'           class="option" ng-class="{selected: isSelected(item)}"'
-+'           ng-repeat="item in filteredData" ng-if="!isSelected(item)" ng-click="toggle(item)">'
++'           ng-repeat="item in filteredData track by $index" ng-if="!isSelected(item)" ng-click="toggle(item)">'
 +'      </div>'
 +'    </div>'
 +'  </div>'
@@ -37,7 +37,6 @@ angular.module('ngCombo', [])
     },
     require: 'ngModel',
     link: function (scope, elem, attrs, ngModelCtrl) {
-      scope.selectedItems = [];
       scope.input = scope.input || [];
       scope.placeholder = scope.placeholder || '';
       scope.filteredData = [];
@@ -54,9 +53,26 @@ angular.module('ngCombo', [])
         .then(function (res, status) {
           console.log('ngCombo request success:', arguments);
           scope.data = scope.transform ? scope.transform(res.data) : res.data;
+          scope.selectedItems = getMatchedItemsFromInput();
         }, function (res, status) {
           console.log('ngCombo request error:', arguments);
         })
+      } else {
+        scope.selectedItems = getMatchedItemsFromInput();
+      }
+
+      function getMatchedItemsFromInput () {
+        if (!(scope.data.length || scope.input.length)) {
+          return [];
+        } else {
+          var result = [];
+          scope.data.forEach(function (item) {
+            if (scope.input.indexOf(scope._parser(item)) > -1) {
+              result.push(item);
+            }
+          });
+          return result;
+        }
       }
 
       scope.onInput = function (event, results) {
@@ -80,7 +96,7 @@ angular.module('ngCombo', [])
       scope.add = function (item) {
         if (scope.selectedItems.indexOf(item) === -1) {
           scope.selectedItems.push(item);
-          scope.input = scope.selectedItems.map(scope._parser);
+          scope.input.push(scope._parser(item));
         }
       };
 
@@ -89,7 +105,7 @@ angular.module('ngCombo', [])
         var idx = scope.selectedItems.indexOf(item);
         if (idx > -1) {
           scope.selectedItems.splice(idx, 1);
-          scope.input = scope.selectedItems.map(scope._parser);
+          scope.input.splice(idx, 1);
         }
       };
 
@@ -111,6 +127,12 @@ angular.module('ngCombo', [])
       scope.$watch('query', function (newQuery) {
         var filtered = $filter('filter')(scope.data, newQuery) || [];
         scope.filteredData = filtered ? filtered.slice(0, scope.limit ? Math.min(scope.limit, filtered.length) : 10) : [];
+      });
+
+      scope.$watch('input', function () {
+        if (scope.data) {
+          scope.selectedItems = getMatchedItemsFromInput();
+        }
       });
     }
   };
