@@ -61,6 +61,8 @@ angular.module('ngCombo', [])
 
       scope.onInput = function (event, results) {
         if (results && results.length === 1 && event.which == 13) {
+          event.preventDefault()
+          event.stopPropagation();
           scope.add(results[0]);
           scope.query = '';
           scope.showList = false;
