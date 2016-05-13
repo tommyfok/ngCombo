@@ -101,6 +101,7 @@ angular.module('ngCombo', [])
 
       scope.hideListAsyn = function () {
         $timeout(function () {
+          scope.query = '';
           scope.showList = false;
         }, 100);
       };
