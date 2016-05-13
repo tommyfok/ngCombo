@@ -3,16 +3,16 @@ var ngComboTpl = ''
 +'  <div class="ngComboMask" ng-hide="showList || selectedItems.length" ng-click="showListAndFocus()"></div>'
 +'  <div class="selectedItems" ng-hide="showList" ng-click="showListAndFocus()">'
 +'    <div class="placeholder" ng-bind="placeholder" ng-hide="selectedItems.length"></div>'
-+'    <span ng-repeat="item in selectedItems">{{formatter(item)}}<i ng-click="remove(item, $event)">&times;</i></span>'
++'    <span ng-repeat="item in selectedItems">{{_formatter(item)}}<i ng-click="remove(item, $event)">&times;</i></span>'
 +'  </div>'
 +'  <div ng-show="showList" class="show-list">'
 +'    <input class="comboQuery" ng-model="query" placeholder="在此输入搜索内容" ng-keyup="onInput($event, filteredData)">'
 +'    <div class="optionList">'
-+'      <div ng-bind="formatter(item)"'
++'      <div ng-bind="_formatter(item)"'
 +'           class="option" ng-class="{selected: isSelected(item)}"'
 +'           ng-repeat="item in selectedItems" ng-click="toggle(item)">'
 +'      </div>'
-+'      <div ng-bind="formatter(item)"'
++'      <div ng-bind="_formatter(item)"'
 +'           class="option" ng-class="{selected: isSelected(item)}"'
 +'           ng-repeat="item in filteredData" ng-if="!isSelected(item)" ng-click="toggle(item)">'
 +'      </div>'
@@ -30,9 +30,9 @@ angular.module('ngCombo', [])
       data: '=?ncData',
       src: '=?ncSrc',
       transform: '=?ncTransform',
-      formatter: '=ncFormatter',
-      parser: '=ncParser',
-      placeholder: '@placeholder',
+      formatter: '=?ncFormatter',
+      parser: '=?ncParser',
+      placeholder: '@?placeholder',
       limit: '=?ncLimit'
     },
     require: 'ngModel',
@@ -42,10 +42,10 @@ angular.module('ngCombo', [])
       scope.placeholder = scope.placeholder || '点击选择';
       scope.filteredData = [];
 
-      scope.formatter = angular.isFunction(scope.formatter) ? scope.formatter : function (item) {
+      scope._formatter = angular.isFunction(scope.formatter) ? scope.formatter : function (item) {
         return item.text || item;
       };
-      scope.parser = angular.isFunction(scope.parser) ? scope.parser : function (item) {
+      scope._parser = angular.isFunction(scope.parser) ? scope.parser : function (item) {
         return item;
       };
 
@@ -77,7 +77,7 @@ angular.module('ngCombo', [])
       scope.add = function (item) {
         if (scope.selectedItems.indexOf(item) === -1) {
           scope.selectedItems.push(item);
-          scope.input = scope.selectedItems.map(scope.parser);
+          scope.input = scope.selectedItems.map(scope._parser);
         }
       };
 
@@ -86,7 +86,7 @@ angular.module('ngCombo', [])
         var idx = scope.selectedItems.indexOf(item);
         if (idx > -1) {
           scope.selectedItems.splice(idx, 1);
-          scope.input = scope.selectedItems.map(scope.parser);
+          scope.input = scope.selectedItems.map(scope._parser);
         }
       };
 
