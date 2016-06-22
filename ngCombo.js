@@ -56,6 +56,7 @@ angular.module('ngCombo', [])
           console.log('ngCombo request success:', arguments);
           scope.data = scope.transform ? scope.transform(res.data) : res.data;
           scope.selectedItems = getMatchedItemsFromInput();
+          updateList(scope.query || '');
         }, function (res, status) {
           console.log('ngCombo request error:', arguments);
         })
@@ -201,16 +202,20 @@ angular.module('ngCombo', [])
         }, 100);
       };
 
-      scope.$watch('query', function (newQuery) {
-        var filtered = $filter('filter')(scope.data, newQuery) || [];
-        scope.filteredData = filtered ? filtered.slice(0, scope.limit ? Math.min(scope.limit, filtered.length) : 10) : [];
-      });
+      scope.$watch('query', updateList);
 
       scope.$watch('input', function () {
         if (scope.data) {
           scope.selectedItems = getMatchedItemsFromInput();
         }
       });
+
+      function updateList (newQuery) {
+        var filtered = $filter('filter')(scope.data, newQuery) || [];
+        scope.filteredData = filtered.length ? filtered.slice(0, scope.limit ? Math.min(scope.limit, filtered.length) : 10) : [];
+      }
+
+      updateList('');
     }
   };
 });
