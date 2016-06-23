@@ -22,7 +22,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <div ng-combo nc-limit="8" nc-src="'http://lib.cdc.com/oaui/memberinput/data/allmember.php?callback=JSON_CALLBACK'" ng-model="pkg" nc-transform="transform"></div>
+        <div ng-combo nc-limit="8" nc-data="[1,2,3,4,5]" ng-model="pkg"></div>
         <pre ng-bind="pkg | json"></pre>
     </div>
     </div>
@@ -33,9 +33,6 @@
     <script>
         angular.module('Demo', ['ngCombo'])
         .controller('DemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
-          $scope.transform = function (data) {
-            return data.data ? data.data.split(',') : [];
-          };
           $scope.pkg = [];
         }]);
     </script>
