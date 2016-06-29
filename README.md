@@ -44,6 +44,7 @@ $scope.transform = function (data) {
      nc-parser="parser"
      nc-formatter="formatter"
      nc-transform="transform"
+     ng-disabled="aSwitchOfThisCombo"
      placeholder="Type in package name."
      nc-src="'http://lib.cdc.com/oaui/memberinput/data/allmember.php?callback=JSON_CALLBACK'">
 </div>

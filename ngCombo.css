@@ -27,6 +27,10 @@
   cursor: text;
   padding: 5px 0 0 5px;
 }
+.ngCombo.disabled .selectedItems {
+  cursor: not-allowed;
+  background: #fcfcfc;
+}
 .ngCombo .selectedItems span {
   margin:0 5px 5px 0;
   display:inline-block;

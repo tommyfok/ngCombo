@@ -6,6 +6,7 @@
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="ngCombo.css">
     <style>
+        [ng-cloak]{display:none}
         .wrapper {
             width: 800px;
             margin: 20px auto;
@@ -20,10 +21,11 @@
         }
     </style>
 </head>
-<body>
+<body ng-cloak>
     <div class="wrapper">
-        <div ng-combo nc-limit="8" nc-src="'http://lib.cdc.com/oaui/memberinput/data/allmember.php?callback=JSON_CALLBACK'" ng-model="pkg" nc-transform="transform"></div>
+        <div ng-combo nc-limit="8" nc-data="[1,2,3,4,5]" ng-model="pkg" ng-disabled="comboDisabled"></div>
         <pre ng-bind="pkg | json"></pre>
+        <button style="margin-top:20px" class="btn btn-default" ng-click="comboDisabled=!comboDisabled">{{comboDisabled?'comboDisabled=false':'comboDisabled=true'}}</button>
     </div>
     </div>
     <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -33,10 +35,7 @@
     <script>
         angular.module('Demo', ['ngCombo'])
         .controller('DemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
-          $scope.transform = function (data) {
-            return data.data ? data.data.split(',') : [];
-          };
-          $scope.pkg = [];
+          $scope.pkg = [1,2];
         }]);
     </script>
 </body>
