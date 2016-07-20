@@ -34,7 +34,8 @@ angular.module('ngCombo', [])
       parser: '=?ncParser',
       placeholder: '@?placeholder',
       limit: '=?ncLimit',
-      disabled: '=?ngDisabled'
+      disabled: '=?ngDisabled',
+      seperator: '=?ncSeperator'
     },
     require: 'ngModel',
     link: function (scope, elem, attrs, ngModelCtrl) {
@@ -80,39 +81,43 @@ angular.module('ngCombo', [])
       }
 
       scope.updateInputPos = function (isBlur) {
-        var lastItem = $(elem).find('.selectedItems span').last()[0];
+        setTimeout(function () {
+          var lastItem = $(elem).find('.selectedItems span').last()[0];
 
-        if (lastItem && !isBlur) {
-          var pbb = lastItem.parentNode.getBoundingClientRect();
-          var bb = lastItem.getBoundingClientRect();
-          var expectLeft = bb.right - pbb.left + 5;
-          var isOverflow = expectLeft + 100 > pbb.width;
-          var posObj = {
-            left: isOverflow ? 0 : expectLeft,
-            top: isOverflow ? (bb.bottom - pbb.top) : (bb.top - pbb.top - 5)
-          };
-          inputElem.css(posObj);
-          $(elem).find('.optionList').css({
-            marginTop: 34 + posObj.top
-          });
-          $(elem).find('.ngCombo .selectedItems').css({
-            paddingBottom: isOverflow ? 28 : 0
-          });
-        } else {
-          inputElem.css({
-            left: '',
-            top: ''
-          });
-          $(elem).find('.optionList').css({
-            marginTop: 34
-          });
-          $(elem).find('.ngCombo .selectedItems').css({
-            paddingBottom: 0
-          });
-        }
+          if (lastItem && !isBlur) {
+            var pbb = lastItem.parentNode.getBoundingClientRect();
+            var bb = lastItem.getBoundingClientRect();
+            var expectLeft = bb.right - pbb.left + 5;
+            var isOverflow = expectLeft + 100 > pbb.width;
+            var posObj = {
+              left: isOverflow ? 0 : expectLeft,
+              top: isOverflow ? (bb.bottom - pbb.top) : (bb.top - pbb.top - 5)
+            };
+            inputElem.css(posObj);
+            $(elem).find('.optionList').css({
+              marginTop: 34 + posObj.top
+            });
+            $(elem).find('.ngCombo .selectedItems').css({
+              paddingBottom: isOverflow ? 28 : 0
+            });
+          } else {
+            inputElem.css({
+              left: '',
+              top: ''
+            });
+            $(elem).find('.optionList').css({
+              marginTop: 34
+            });
+            $(elem).find('.ngCombo .selectedItems').css({
+              paddingBottom: 0
+            });
+          }
+        }, 50);
       };
 
       scope.onInput = function (event, results) {
+        var ctrlKey = event.ctrlKey;
+        var metaKey = event.metaKey;
         var code = event.which;
         if (code == 13 && results) {
           var toSelectItem = results[scope.hoverIndex] || results[0];
@@ -131,9 +136,27 @@ angular.module('ngCombo', [])
         } else if (code == 8 && scope.query == '') {
             var lastItem = scope.selectedItems[scope.selectedItems.length-1];
             lastItem && scope.remove(lastItem, event);
-            setTimeout(function () {
-              scope.updateInputPos();
-            }, 50);
+            scope.updateInputPos();
+        } else if (scope.seperator && (ctrlKey || metaKey) && (code == 86)) {
+          $timeout(function () {
+            var inputList = inputElem.val().split(scope.seperator).filter(function (word) {
+              return !!word;
+            });
+
+            var lastWord = '';
+            inputList.forEach(function (word) {
+              updateList(word);
+              var resultList = scope.filteredData;
+              if (resultList.length === 1) {
+                scope.add(resultList[0]);
+              } else {
+                lastWord = word;
+              }
+            });
+
+            scope.query = '';
+            scope.updateInputPos();
+          }, 100);
         } else if (results && results.length) {
           var up = code == 38;
           var down = code == 40;

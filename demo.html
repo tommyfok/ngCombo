@@ -23,7 +23,7 @@
 </head>
 <body ng-cloak>
     <div class="wrapper">
-        <div ng-combo nc-limit="8" nc-data="[1,2,3,4,5]" ng-model="pkg" ng-disabled="comboDisabled"></div>
+        <div ng-combo nc-seperator="';'" nc-limit="8" nc-data="[1,2,3,4,5]" ng-model="pkg" ng-disabled="comboDisabled"></div>
         <pre ng-bind="pkg | json"></pre>
         <button style="margin-top:20px" class="btn btn-default" ng-click="comboDisabled=!comboDisabled">{{comboDisabled?'comboDisabled=false':'comboDisabled=true'}}</button>
     </div>
