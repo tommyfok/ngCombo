@@ -23,7 +23,7 @@
 </head>
 <body ng-cloak>
     <div class="wrapper">
-        <div ng-combo nc-seperator="';'" nc-parser="parser" nc-limit="8" nc-data="data" ng-model="pkg" ng-disabled="comboDisabled"></div>
+        <div ng-combo nc-seperator="';'" nc-parser="parser" nc-formatter="formatter" nc-limit="8" nc-data="data" ng-model="pkg" ng-disabled="comboDisabled"></div>
         <pre ng-bind="pkg | json"></pre>
         <button style="margin-top:20px" class="btn btn-default" ng-click="comboDisabled=!comboDisabled">{{comboDisabled?'comboDisabled=false':'comboDisabled=true'}}</button>
     </div>
@@ -35,16 +35,46 @@
     <script>
         angular.module('Demo', ['ngCombo'])
         .controller('DemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
-          $scope.pkg = [11,'22','aa'];
-          $scope.data = [1,2,3,4,5];
+          $scope.pkg = [1,2,3];
+          $scope.data = [
+            {
+                key: 'A',
+                value: 1
+            },
+            {
+                key: 'B',
+                value: 2
+            }
+          ];
+
+          $scope.formatter = function (item) {
+            return item.key;
+          };
 
           $scope.parser = function (item) {
-            return item + '' + item;
+            return item.value;
           };
 
           $timeout(function () {
             $scope.data = [];
-            $scope.data = ['a', 'b', 'c', 'd'];
+            $scope.data = [
+                {
+                    key: 'A',
+                    value: 1
+                },
+                {
+                    key: 'B',
+                    value: 2
+                },
+                {
+                    key: 'C',
+                    value: 3
+                },
+                {
+                    key: 'D',
+                    value: 4
+                }
+              ];
           }, 3000);
         }]);
     </script>
