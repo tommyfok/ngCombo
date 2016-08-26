@@ -67,17 +67,15 @@ angular.module('ngCombo', [])
       }
 
       function getMatchedItemsFromInput () {
-        if (!((scope.data && scope.data.length) || scope.input.length)) {
-          return [];
-        } else {
-          var result = [];
+        var result = [];
+        if (scope.data && scope.data.length && scope.input && scope.input.length) {
           scope.data.forEach(function (item) {
             if (scope.input.indexOf(scope._parser(item)) > -1) {
               result.push(item);
             }
           });
-          return result;
         }
+        return result;
       }
 
       scope.updateInputPos = function (isBlur) {
@@ -231,10 +229,13 @@ angular.module('ngCombo', [])
 
       scope.$watch('query', updateList);
 
+      scope.$watch('data', function () {
+        updateList('');
+        scope.selectedItems = getMatchedItemsFromInput();
+      });
+
       scope.$watch('input', function () {
-        if (scope.data) {
-          scope.selectedItems = getMatchedItemsFromInput();
-        }
+        scope.selectedItems = getMatchedItemsFromInput();
       });
 
       function updateList (newQuery) {
