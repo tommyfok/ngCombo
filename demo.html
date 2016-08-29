@@ -56,25 +56,14 @@
           };
 
           $timeout(function () {
-            $scope.data = [];
-            $scope.data = [
-                {
-                    key: 'A',
-                    value: 1
-                },
-                {
-                    key: 'B',
-                    value: 2
-                },
-                {
-                    key: 'C',
-                    value: 3
-                },
-                {
-                    key: 'D',
-                    value: 4
-                }
-              ];
+            $scope.data.push({
+                key: 'C',
+                value: 3
+            });
+            $scope.data.push({
+                key: 'D',
+                value: 4
+            });
           }, 3000);
         }]);
     </script>

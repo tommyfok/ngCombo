@@ -232,7 +232,7 @@ angular.module('ngCombo', [])
       scope.$watch('data', function () {
         updateList('');
         scope.selectedItems = getMatchedItemsFromInput();
-      });
+      }, true);
 
       scope.$watch('input', function () {
         scope.selectedItems = getMatchedItemsFromInput();
