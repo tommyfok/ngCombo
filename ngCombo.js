@@ -3,7 +3,7 @@ var ngComboTpl = ''
 // +'  <div class="ngComboMask" ng-hide="showList" ng-click="showListAndFocus()"></div>'
 +'  <div class="selectedItems" ng-click="showListAndFocus()">'
 +'    <div class="placeholder" ng-bind="placeholder" ng-hide="selectedItems.length"></div>'
-+'    <span ng-repeat="item in selectedItems track by $index">{{_formatter(item)}}<i ng-click="remove(item, $event)" ng-hide="showList||disabled">&times;</i></span>'
++'    <span ng-repeat="item in selectedItems track by $index">{{_formatter(item)}}<i ng-class="{disabled:showList}" ng-click="remove(item, $event)">&times;</i></span>'
 +'  </div>'
 +'  <div ng-show="showList" class="show-list" ng-class="{nb:!filteredData.length}">'
 +'    <input class="comboQuery" ng-model="query" ng-focus="isBlured=false;updateInputPos()" ng-blur="isBlured=true;hideListAsyn()" placeholder="{{scope.placeholder}}" ng-keydown="onInput($event, filteredData)">'
@@ -199,6 +199,9 @@ angular.module('ngCombo', [])
 
       scope.remove = function (item, event) {
         event && event.stopPropagation();
+        if (scope.disabled) {
+          return;
+        }
         var idx = scope.selectedItems.indexOf(item);
         if (idx > -1) {
           scope.selectedItems.splice(idx, 1);

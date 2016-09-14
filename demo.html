@@ -38,11 +38,11 @@
           $scope.pkg = [1,2,3];
           $scope.data = [
             {
-                key: 'A',
+                key: 'Apple',
                 value: 1
             },
             {
-                key: 'B',
+                key: 'Bus',
                 value: 2
             }
           ];
@@ -57,12 +57,32 @@
 
           $timeout(function () {
             $scope.data.push({
-                key: 'C',
+                key: 'Cup',
                 value: 3
             });
             $scope.data.push({
-                key: 'D',
+                key: 'Duplicate',
                 value: 4
+            });
+            $scope.data.push({
+                key: 'Egg',
+                value: 5
+            });
+            $scope.data.push({
+                key: 'Flush',
+                value: 6
+            });
+            $scope.data.push({
+                key: 'Git',
+                value: 7
+            });
+            $scope.data.push({
+                key: 'Hadoop',
+                value: 8
+            });
+            $scope.data.push({
+                key: 'Intergration',
+                value: 9
             });
           }, 3000);
         }]);
