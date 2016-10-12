@@ -1,30 +1,11 @@
-var ngComboTpl = ''
-+'<div class="ngCombo" ng-class="{disabled:disabled}" ng-mouseenter="overComponent=true" ng-mouseleave="overComponent=false;hideListIfBlured()">'
-// +'  <div class="ngComboMask" ng-hide="showList" ng-click="showListAndFocus()"></div>'
-+'  <div class="selectedItems" ng-click="showListAndFocus()">'
-+'    <div class="placeholder" ng-bind="placeholder" ng-hide="selectedItems.length"></div>'
-+'    <span ng-repeat="item in selectedItems track by $index">{{_formatter(item)}}<i ng-class="{disabled:showList}" ng-click="remove(item, $event)">&times;</i></span>'
-+'  </div>'
-+'  <div ng-show="showList" class="show-list" ng-class="{nb:!filteredData.length}">'
-+'    <input class="comboQuery" ng-model="query" ng-focus="isBlured=false;updateInputPos()" ng-blur="isBlured=true;hideListAsyn()" placeholder="{{scope.placeholder}}" ng-keydown="onInput($event, filteredData)">'
-+'    <div class="optionList" ng-show="filteredData.length">'
-// +'      <div ng-bind="_formatter(item)"'
-// +'           class="option" ng-class="{selected: isSelected(item)}"'
-// +'           ng-repeat="item in selectedItems track by $index" ng-click="toggle(item)">'
-// +'      </div>'
-+'      <div ng-bind="_formatter(item)"'
-+'           class="option" ng-class="{selected: isSelected(item), hovered: hoverIndex == $index}"'
-+'           ng-repeat="item in filteredData track by $index" ng-click="toggle(item)">'
-+'      </div>'
-+'    </div>'
-+'  </div>'
-+'</div>';
+require('./ngCombo.less');
 
-angular.module('ngCombo', [])
+angular
+.module('ngCombo', [])
 .directive('ngCombo', function ($http, $filter, $timeout) {
   return {
     restrict: 'AE',
-    template: ngComboTpl,
+    template: require('./ngCombo.html'),
     scope: {
       input: '=ngModel',
       data: '=?ncData',

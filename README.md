@@ -14,7 +14,7 @@ Support multiple select.
 
 3. adding `ngCombo` as a module dependency to your application
 
-## Useage
+## Usage
 ```javascript
 $scope.pkgNames = [
   {text: 'tom', value: 1},
