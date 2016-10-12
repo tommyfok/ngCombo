@@ -1,112 +1,103 @@
 .ngCombo {
-  position:relative;
-  border:1px solid #ccc;
-  font-size:12px;
-  min-height: 34px;
-  overflow: visible;
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    position: relative;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    min-height: 34px;
+    overflow: visible;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    .placeholder {
+        line-height: 34px;
+        padding-left: 10px;
+        color: #789;
+    }
+    .selectedItems {
+        min-height: 32px;
+        cursor: text;
+        padding: 5px 0 0 5px;
+        span {
+            margin: 0 5px 5px 0;
+            display: inline-block;
+            cursor: pointer;
+            color: #666;
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            & > i {
+                margin-left: 4px;
+                font-style: normal;
+                &.disabled {
+                    opacity: .3;
+                }
+                &:hover {
+                    color: #f60;
+                }
+            }
+        }
+    }
+    &.disabled {
+        .selectedItems {
+            cursor: not-allowed;
+            background: #fcfcfc;
+        }
+    }
+    .option {
+        position: relative;
+        line-height: 30px;
+        padding: 0 10px 0 20px;
+        cursor: pointer;
+        background: #fefefe;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        &.hovered {
+            font-weight: bold;
+        }
+        &:hover {
+            color: #f60;
+        }
+        &:nth-child(2n) {
+            background: #fafafa
+        }
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 5px;
+            background: #ddd;
+            left: 7.5px;
+            top: 50%;
+            margin-top: -2.5px;
+            &.selected {
+                background: #57e057;
+            }
+        }
+    }
+    .comboQuery,
+    .comboQuery:focus {
+        border: none;
+        outline: none;
+        display: block;
+        position: absolute;
+        padding: 9px;
+        line-height: 14px;
+        background: none;
+    }
+    .optionList {
+        max-height: 182px;
+        overflow: auto;
+        margin-top: 34px;
+    }
+    .show-list {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        border-radius: 3px;
+        z-index: 3;
+        border-bottom: 1px solid #ddd;
+        &.nb {
+            border: none;
+        }
+    }
 }
-.ngCombo .placeholder {
-  line-height:34px;
-  padding-left:10px;
-  color:#789
-}
-.ngComboMask {
-  position:absolute;
-  z-index:2;
-  width:100%;
-  height:100%;
-  cursor:pointer;
-  left:0;
-  top:0
-}
-.ngCombo .selectedItems {
-  min-height:32px;
-  cursor: text;
-  padding: 5px 0 0 5px;
-}
-.ngCombo.disabled .selectedItems {
-  cursor: not-allowed;
-  background: #fcfcfc;
-}
-.ngCombo .selectedItems span {
-  margin:0 5px 5px 0;
-  display:inline-block;
-  cursor:pointer;
-  color:#666;
-  background:#eee;
-  padding:2px 5px;
-  border-radius:3px
-}
-.ngCombo .selectedItems span > i {
-  margin-left: 4px;
-  font-style: normal;
-}
-.ngCombo .selectedItems span > i.disabled {
-  opacity: .3;
-}
-.ngCombo .selectedItems span > i:hover {
-  color: #f60;
-}
-.ngCombo .option {
-  position: relative;
-  line-height:30px;
-  padding:0 10px 0 20px;
-  cursor:pointer;
-  background:#fefefe;
-  border-left:1px solid #ddd;
-  border-right:1px solid #ddd;
-}
-.ngCombo .option:nth-child(2n) {
-  background:#fafafa
-}
-.ngCombo .option.hovered {
-  font-weight: bold;
-}
-.ngCombo .option:before {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 5px;
-  background: #ddd;
-  left: 7.5px;
-  top: 50%;
-  margin-top: -2.5px;
-}
-.ngCombo .option.selected:before {
-  background: #57e057;
-}
-.ngCombo .comboQuery,
-.ngCombo .comboQuery:focus {
-  border:none;
-  outline:none;
-  display:block;
-  position: absolute;
-  padding: 9px;
-  line-height: 14px;
-  background:none;
-}
-.ngCombo .optionList {
-  max-height:182px;
-  overflow:auto;
-  margin-top: 34px;
-}
-.ngCombo .option:hover {
-  color:#f60
-}
-.ngCombo .show-list {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  border-radius: 3px;
-  z-index: 3;
-  border-bottom:1px solid #ddd;
-}
-.ngCombo .show-list.nb {
-  border: none;
-}
-

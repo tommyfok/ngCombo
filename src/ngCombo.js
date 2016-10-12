@@ -183,11 +183,17 @@ angular
         if (scope.disabled) {
           return;
         }
+        // 从selectedItems中移除
         var idx = scope.selectedItems.indexOf(item);
         if (idx > -1) {
-          scope.selectedItems.splice(idx, 1);
-          scope.input.splice(idx, 1);
+            scope.selectedItems.splice(idx, 1);
         }
+        // 从input中移除
+        scope.input.forEach(function (inputItemValue, index) {
+            if (JSON.stringify(inputItemValue) === JSON.stringify(scope._parser(item))) {
+                scope.input.splice(index, 1);
+            }
+        });
       };
 
       scope.isSelected = function (item) {
