@@ -1,5 +1,5 @@
 {
-  "name": "ng-combo",
+  "name": "@tencent/ng-combo",
   "version": "1.0.0",
   "description": "Combo Module for AngularJS.",
   "main": "./build/ngCombo.js",
