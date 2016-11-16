@@ -50,13 +50,16 @@
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
         &.hovered {
-            font-weight: bold;
+            font-weight: bold !important;
         }
         &:hover {
             color: #f60;
         }
         &:nth-child(2n) {
             background: #fafafa
+        }
+        &.selected:before {
+            background: #57e057;
         }
         &:before {
             content: "";
@@ -69,9 +72,6 @@
             left: 7.5px;
             top: 50%;
             margin-top: -2.5px;
-            &.selected {
-                background: #57e057;
-            }
         }
     }
     .comboQuery,
